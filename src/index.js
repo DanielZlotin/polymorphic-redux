@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export class Reducer {
   static create(initialState, EventClass) {
     return new Reducer(initialState, EventClass).reduce;
@@ -22,7 +24,7 @@ export class Event {
   static prefix = '';
 
   static create(params) {
-    return {type: `${prefix}${this.name}`, _instance: new this(params)}; //eslint-disable-line
+    return {type: `${this.prefix}${this.name}`, _instance: new this(params)}; //eslint-disable-line
   }
 
   constructor(params) {
@@ -30,7 +32,7 @@ export class Event {
   }
 
   newState(oldState) {
-    return {...oldState, ...this.merge(oldState)};
+    return _.merge({}, oldState, this.merge(oldState));
   }
 
   merge(oldState) {

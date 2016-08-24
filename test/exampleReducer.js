@@ -1,32 +1,34 @@
+import _ from 'lodash';
 import {Reducer, Event} from './../src/index';
 
-const initialState = {
-  friend: 'Tal',
-  name: undefined,
-  age: undefined
+export const initialState = {
+  todos: {}
 };
 
-class PostsEvent extends Event {
-  static prefix = 'wix.feed.posts.';
+class TodosEvent extends Event {
+  static prefix = 'no.more.switch.statements.todos.';
 }
 
-export class PostsLoadingEvent extends PostsEvent {
+export class AddTodoEvent extends TodosEvent {
+  newState(oldState) {
+    return _.merge({}, oldState, {todos: this.params});
+  }
+}
+
+export class AddTodoUsingMergeEvent extends TodosEvent {
+  merge(oldState) {
+    return {todos: this.params};
+  }
+}
+
+export class RemoveTodoEvent extends TodosEvent {
   newState(oldState) {
     return {
       ...oldState,
-      name: this.params.name,
-      age: this.params.age
+      todos: _.omit(oldState.todos, this.params)
     };
   }
 }
 
-export class PostsFetchedEvent extends PostsEvent {
-  merge(oldState) {
-    return {
-      name: this.params.name
-    };
-  }
-}
-
-const postsReducer = Reducer.create(initialState, PostsEvent);
-export default postsReducer;
+const TodosReducer = Reducer.create(initialState, TodosEvent);
+export default TodosReducer;
