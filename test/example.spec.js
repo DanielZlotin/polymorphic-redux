@@ -2,7 +2,7 @@ import {createStore} from 'redux';
 
 import TodosReducer, {AddTodoEvent, AddTodoUsingMergeEvent, RemoveTodoEvent, initialState} from './exampleModule';
 
-describe('insanity', () => {
+describe('polymorphic-redux', () => {
   let store, dispatch;
 
   beforeEach(() => {
