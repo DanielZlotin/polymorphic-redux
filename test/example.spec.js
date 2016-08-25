@@ -1,6 +1,6 @@
 import {createStore} from 'redux';
 
-import TodosReducer, {AddTodoEvent, AddTodoUsingMergeEvent, RemoveTodoEvent, initialState} from './exampleReducer';
+import TodosReducer, {AddTodoEvent, AddTodoUsingMergeEvent, RemoveTodoEvent, initialState} from './exampleModule';
 
 describe('insanity', () => {
   let store, dispatch;
@@ -34,8 +34,6 @@ describe('insanity', () => {
         456: 'buy milk'
       }
     });
-
-    expect(initialState).toEqual({todos: {}});
   });
 
   it('merge is implicitly immutable and even CLEANER then newState', () => {
